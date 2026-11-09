@@ -1,0 +1,36 @@
+# Cache e bytecode do Python
+__pycache__/
+*.py[cod]
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Arquivos temporários do Jupyter
+.ipynb_checkpoints/
+
+# Cache de testes e ferramentas
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Artefatos de empacotamento Python
+build/
+dist/
+*.egg-info/
+
+# Configuração local com possíveis credenciais
+.env
+.env.*
+!.env.example
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Dados e notebooks não são ignorados por padrão.
+# A política de versionamento dos dados será definida posteriormente.
