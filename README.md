@@ -10,7 +10,7 @@ Desenvolver um projeto de portfólio para descrever a trajetória da dívida pú
 
 ## Período
 
-De janeiro de 2023 até o último mês divulgado de 2026, com frequência mensal. A última competência disponível será identificada após a validação das séries; quando a cobertura não alcançar dezembro, 2026 será apresentado como ano parcial.
+De janeiro de 2023 até o último mês divulgado de 2026, com frequência mensal. A última competência é verificada por fonte: para as séries de saldo, a consulta de 10/11/2026 retornou setembro de 2026; a cobertura dos fatores ainda não foi confirmada; quando a cobertura não alcançar dezembro, 2026 será apresentado como ano parcial.
 
 ## Indicador e fonte
 
@@ -61,9 +61,11 @@ Valores em reais correntes não descontam a inflação; sua evolução e a rela�
 
 O indicador principal, a fonte, a frequência e as medidas foram definidos. O escopo inclui a trajetória e os fatores condicionantes da DBGG, com distinção entre descrição, decomposição contábil e investigação causal.
 
-O [mapeamento de fontes e séries](fontes-e-series.md), consultado em 10/11/2026, está **parcial**. As séries SGS 13762 e 13761 foram confirmadas como mensais, com início em dezembro de 2006 e última observação retornada em setembro de 2026. A continuidade de todos os meses ainda será verificada. A base oficial dos fatores condicionantes foi localizada, mas sua cobertura de 2023–2026 e a associação dos componentes às unidades e às apresentações mensais ou acumuladas permanecem pendentes.
+O [mapeamento de fontes e séries](fontes-e-series.md), consultado em 10/11/2026, está **parcial**. As séries SGS 13762 e 13761 foram confirmadas como mensais, com início em dezembro de 2006 e última observação retornada em setembro de 2026. As quatro amostras foram reconfirmadas com consultas de datas fixas, que também podem retornar valores revisados. A continuidade de todos os meses ainda será verificada. O denominador da fórmula da SGS 13762 foi identificado como PIB acumulado em 12 meses a preços correntes (SGS 4382).
 
-A próxima etapa será resolver essas verificações antes da coleta completa. O período principal permanece janeiro de 2023 até o último mês disponível de 2026; setembro de 2026 foi confirmado para os saldos, mas ainda não para os fatores.
+O ZIP oficial dos fatores foi baixado novamente, mas a leitura das células está **bloqueada pela ausência de leitor XLS** no ambiente. Não houve instalação de dependências. Para prosseguir, será necessário `xlrd` ou LibreOffice. Não foram confirmadas a primeira e a última competência dos fatores, a cobertura de 2023–2026, os componentes, suas unidades, sinais e hierarquia, nem a conciliação pontual. Foram investigadas rotas alternativas oficiais, sem validar um arquivo atualizado. Os rótulos anteriormente extraídos permanecem candidatos.
+
+A próxima etapa será resolver essas verificações antes da coleta completa. O período principal permanece janeiro de 2023 até o último mês disponível de 2026; setembro de 2026 foi confirmado para os saldos, mas ainda não para os fatores. Consultar dezembro de 2022 apenas como referência para calcular a variação de janeiro de 2023 continua como proposta pendente de decisão.
 
 Foram consultados metadados, pequenas amostras oficiais e o arquivo dos fatores para verificação. Não foi montada a base completa, não foram criados scripts de coleta, notebooks ou código de análise, e nenhuma dependência foi instalada nesta etapa.
 
