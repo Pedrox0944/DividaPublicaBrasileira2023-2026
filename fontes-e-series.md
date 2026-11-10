@@ -1,12 +1,12 @@
 # Fontes e séries da dívida pública brasileira
 
-Consulta: **10/11/2026**, horário de referência America/Fortaleza. Estado: **mapeamento parcial; validação dos fatores condicionantes pendente**.
+Consulta: **10/11/2026**, horário de referência America/Fortaleza. Estado: **mapeamento suficiente para a primeira entrega mensal de janeiro/2023 a setembro/2026, com ressalvas documentadas; validação completa das demais apresentações não concluída**.
 
 ## Escopo e critérios
 
-O período principal permanece janeiro de 2023 até o último mês disponível de 2026. Nas consultas pontuais das duas séries SGS em 10/11/2026, a última competência retornada foi setembro de 2026. A cobertura dos fatores ainda não foi confirmada; portanto, esse término não se aplica automaticamente à decomposição. 2026 será tratado como ano parcial. Consultar dezembro de 2022 apenas como referência para calcular a variação de janeiro de 2023 é uma **proposta pendente de decisão**.
+O período principal permanece janeiro de 2023 até o último mês disponível de 2026. Nas consultas pontuais das duas séries SGS em 10/11/2026, a última competência retornada foi setembro de 2026. O XLSX atual dos fatores também contém janeiro de 2023 a setembro de 2026; o ZIP/XLS legado termina em novembro de 2018. Além da presença das células, foram verificados os saldos e as identidades dos componentes mensais selecionados no intervalo; as demais apresentações não foram validadas integralmente. 2026 será tratado como ano parcial. Consultar dezembro de 2022 apenas como referência para calcular a variação de janeiro de 2023 é uma **proposta pendente de decisão**.
 
-Metadados são informações que descrevem os dados: conceito, unidade, frequência, cobertura e método. Conferi-los antes da coleta evita juntar medidas incompatíveis ou interpretar um acumulado como movimento mensal. Nesta etapa foram consultados metadados, duas observações por série e o pequeno arquivo oficial dos fatores; não foi construída uma base de análise.
+Metadados são informações que descrevem os dados: conceito, unidade, frequência, cobertura e método. Conferi-los antes da coleta evita juntar medidas incompatíveis ou interpretar um acumulado como movimento mensal. Foram consultados metadados, amostras históricas e os 45 meses do período principal em cada série SGS, além de células dos arquivos oficiais dos fatores. Os trechos de Python serviram apenas à inspeção e à validação documental; não foi construída a base final de análise nem um pipeline.
 
 ## 1. DBGG em percentual do PIB — SGS 13762
 
@@ -18,7 +18,7 @@ Metadados são informações que descrevem os dados: conceito, unidade, frequên
 - **Frequência e cobertura:** mensal; início em dezembro de 2006, confirmado no cadastro e na amostra inicial; última observação retornada: setembro de 2026. O nome “a partir de 2008” identifica a metodologia e não a primeira competência.
 - **Formatos e acesso previsto:** catálogo oferece JSON, CSV, SOAP/WSDL e visualização HTML. Para uma futura coleta, preferir BCData/SGS em JSON ou CSV com intervalo explícito, após autorização.
 - **Evidências:** [amostra inicial CSV](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=csv&dataInicial=01/12/2006&dataFinal=31/12/2006) retornou `01/12/2006;55,48`; [amostra de setembro de 2026 com intervalo fixo](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/09/2026&dataFinal=30/09/2026) retornou `01/09/2026`, valor `82.93`. Ambos os exemplos foram reconfirmados em 10/11/2026. A consulta [ultimos/1](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados/ultimos/1?formato=json), usada apenas para descobrir a competência mais recente, retornou o mesmo mês e valor nessa data. A data representa a competência mensal.
-- **Limite:** a continuidade de todos os meses de 2023–2026 ainda não foi auditada. A atualização dos metadados do catálogo em 08/09/2026 não foi usada como data do último dado.
+- **Verificação do intervalo principal:** 45 meses de janeiro/2023 a setembro/2026, sem ausências, duplicações ou valores inválidos; saldos compatíveis com o XLSX à precisão de duas casas do SGS, conforme a seção de validação mensal abaixo. A atualização dos metadados do catálogo em 08/09/2026 não foi usada como data do último dado.
 
 ## 2. DBGG nominal — SGS 13761 confirmada
 
@@ -31,73 +31,206 @@ Metadados são informações que descrevem os dados: conceito, unidade, frequên
 - **Cobertura:** dezembro de 2006 a setembro de 2026 nas verificações de início e última observação. “End date: Undefined” no cadastro significa ausência de término cadastral, não disponibilidade futura.
 - **Formatos e acesso previsto:** JSON e CSV confirmados por amostras; consulta HTML dos metadados SGS. Futuro acesso por BCData/SGS com intervalo explícito. Outros formatos não foram validados especificamente para este código.
 - **Evidências:** [amostra inicial CSV](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13761/dados?formato=csv&dataInicial=01/12/2006&dataFinal=31/12/2006) retornou `01/12/2006;1336644,90`; [amostra de setembro de 2026 com intervalo fixo](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13761/dados?formato=json&dataInicial=01/09/2026&dataFinal=30/09/2026) retornou `01/09/2026`, valor `11113782.53`, em milhões de reais. Ambos os exemplos foram reconfirmados em 10/11/2026. A consulta [ultimos/1](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13761/dados/ultimos/1?formato=json), usada apenas para descobrir a competência mais recente, retornou o mesmo mês e valor nessa data.
-- **Limites:** continuidade mensal ainda não auditada. A busca pelo código no catálogo de dados abertos não localizou um conjunto; isso não invalida a identificação confirmada diretamente no SGS. A data de atualização do painel de metadados, 15/12/2010, tampouco é a última competência.
+- **Verificação e limites:** os 45 meses do intervalo principal foram conferidos, sem ausências, duplicações ou valores inválidos, e comparados ao XLSX conforme a seção abaixo. A busca pelo código no catálogo de dados abertos não localizou um conjunto; isso não invalida a identificação confirmada diretamente no SGS. A data de atualização do painel de metadados, 15/12/2010, tampouco é a última competência.
 
 ## Rastreabilidade das consultas SGS
 
 | Informação | Significado e evidência |
 |---|---|
-| Competência | Mês ao qual o dado se refere: dezembro de 2006 e setembro de 2026 nas quatro amostras verificadas. O dia 01 no retorno identifica o mês; não é a data de divulgação. |
+| Competência | Mês ao qual o dado se refere: dezembro/2006 na amostra histórica e janeiro/2023 a setembro/2026 na verificação integral do intervalo principal. O dia 01 no retorno identifica o mês; não é a data de divulgação. |
 | Data da consulta | 10/11/2026: quando os retornos foram lidos e os valores acima reconfirmados. |
 | Atualização dos metadados | 08/09/2026 no catálogo da SGS 13762 e 15/12/2010 no painel da SGS 13761, conforme verificação anterior. Indicam atualização da descrição cadastral, não competência nem publicação dos valores. |
 
-Os intervalos fixos permitem reencontrar a competência citada, mas **não congelam a versão dos dados**: consultas futuras podem retornar valores revisados pelo BCB. Os valores transcritos registram o retorno observado em 10/11/2026; não foi criado um arquivo histórico das respostas. Verificar primeiro e último mês não prova continuidade mensal: a presença de todos os meses de 2023–2026 permanece pendente.
+Os intervalos fixos permitem reencontrar a competência citada, mas **não congelam a versão dos dados**: consultas futuras podem retornar valores revisados pelo BCB. Os valores transcritos registram o retorno observado em 10/11/2026. As duas respostas do intervalo principal ficaram temporariamente em `/tmp`, com hashes registrados abaixo; não foi criado histórico versionado de dados. A presença dos 45 meses foi agora conferida diretamente, sem inferi-la apenas dos extremos.
 
-## 3. Fatores condicionantes — leitura das células bloqueada
+## Ambiente usado para desbloquear a leitura
 
-- **Nome oficial da página:** Série histórica da DBGG - fatores condicionantes. **Instituição:** Banco Central do Brasil. Não foi confirmado código SGS para esta base ou para seus componentes.
-- **Acesso:** [página oficial](https://www.bcb.gov.br/htms/Infecon/seriehistDBGGFC.asp?frame=1), que oferece um recurso “Mensal”, e [ZIP vinculado pela página](https://www.bcb.gov.br/ftp/notaecon/facdbp.zip). Documentação geral: manual citado acima. [Tabelas especiais](https://www.bcb.gov.br/estatisticas/tabelasespeciais) é uma rota oficial a investigar para eventual versão atualizada; sua leitura nesta consulta retornou apenas a exigência de JavaScript.
-- **Formato confirmado:** o vínculo foi reconferido no HTML oficial e o ZIP foi baixado novamente em 10/11/2026 para `/tmp/facdbp-validacao.zip`. Contém `Facdbp.xls` (143.872 bytes). SHA-256 do ZIP consultado: `f1c5ddab041f5be3dbede15e79133ab5daccd5684189fd9cb66175631cde298c`. O hash identifica os bytes examinados, não a competência dos dados. Acesso previsto: leitura da planilha oficial com ferramenta adequada, sem modificar os dados.
-- **Inspeção anterior, insuficiente para validar células:** os nomes das abas extraídos como texto foram “Fluxos mensais” e “Fluxos acumulados no ano”. A extração de texto também encontrou rótulos de saldo, variação mensal e variação acumulada no ano. Portanto, há apresentações temporais distintas; não se deve tratar toda coluna como fluxo mensal.
-- **Rótulos encontrados anteriormente; componentes candidatos a confirmar:** emissões líquidas; juros nominais; ajuste cambial; dívida externa — outros ajustes; reconhecimento de dívidas; privatizações; efeito do crescimento do PIB sobre a dívida. Também aparecem agregados de fatores e necessidades de financiamento. A presença textual foi registrada na inspeção anterior, mas não comprova que todos sejam componentes da apresentação de DBGG relevante. A associação de cada rótulo às células, unidades, hierarquia e competências permanece pendente. Em particular, privatizações não está validada como componente da tabela a utilizar. Não somar agregados e seus subcomponentes.
-- **Unidades e metodologia ainda não validadas nas células:** a extração de texto anterior contém indicação de milhões de reais e apresentações em relação ao PIB. Uma nota descreve fatores divididos pelo PIB corrente acumulado em doze meses e adverte que isso não reflete, isoladamente, a variação da razão dívida/PIB; outra menciona soma dos efeitos mensais até o mês de referência. É necessário ler as notas junto às respectivas tabelas para confirmar a unidade e a aplicação de cada coluna, inclusive o efeito do PIB.
-- **Cobertura:** primeira e última competências **não confirmadas nas células**. Não foi possível afirmar presença ou ausência de 2023–2026. Datas de gravação do XLS e da entrada no ZIP não foram usadas para inferir a última competência ou declarar o arquivo desatualizado.
-- **Pendências essenciais:** abrir as células da planilha com ferramenta adequada, conferir cabeçalhos, notas, primeira e última competência; localizar versão oficial que cubra 2023–2026, se este arquivo não cobrir; confirmar unidade, sinais, componentes e hierarquia de cada apresentação; verificar conciliação com a variação do saldo e da relação dívida/PIB. Não propor cálculos de contribuições antes disso.
-- **Bloqueio técnico confirmado nesta etapa:** não foram encontrados `libreoffice`/`soffice`, `ssconvert` ou `xls2csv` no PATH; a lista de pacotes Python não contém leitor XLS, e `Spreadsheet::ParseExcel` não está disponível no Perl. A busca nas bibliotecas de sistema também não localizou leitores relevantes. O download funcionou, mas **o XLS não foi aberto em um leitor de células**. A ferramenta mínima para prosseguir é `xlrd` no Python, ou LibreOffice para inspeção visual. Nenhuma dependência foi instalada, respeitando o limite desta tarefa. Não foi implementado leitor próprio nem pipeline.
+Em 10/11/2026, o terminal disponibilizou `/usr/bin/python` e `/usr/bin/python3`, com Python **3.13.16**. Foi criada a `.venv` exclusiva do projeto com `python -m venv .venv`. A instalação foi feita por `.venv/bin/python -m pip install xlrd`; a versão instalada é **xlrd 2.0.2**. Todos os trechos de inspeção posteriores usaram explicitamente `.venv/bin/python`.
 
-### Caminhos oficiais alternativos investigados
+`git check-ignore -v .venv/bin/python` confirmou a regra `.venv/` na linha 6 do `.gitignore` existente. Não houve instalação global, uso de sudo ou alteração do `.gitignore`. Esta é apenas a ferramenta de leitura XLS: **o ambiente completo de análise não está configurado**.
 
-A busca serve para localizar uma apresentação utilizável sem presumir que o ZIP seja atual ou antigo. Como sua cobertura não foi lida, não se afirma que uma substituição seja necessária.
+O XLSX alternativo foi identificado antes da leitura. `xlrd` 2.0.2 não suporta XLSX; para a inspeção pontual foram usados `zipfile` e `xml.etree.ElementTree` da biblioteca padrão, lendo os valores armazenados e as referências das células em XML. Não houve recálculo das fórmulas pelo Excel nem instalação de outro leitor. Para uma futura implementação geral, um leitor como `openpyxl` poderá ser avaliado, mas não foi instalado nesta tarefa.
 
-| Caminho consultado em 10/11/2026 | Resultado e limite |
-|---|---|
-| [Tabelas especiais](https://www.bcb.gov.br/estatisticas/tabelasespeciais) | A leitura direta retornou a exigência de JavaScript. A pesquisa indexada do domínio oficial mostrou os títulos “Dívida Bruta do Governo Geral - DBGG - Fatores Condicionantes” e “Dívida Bruta do Governo Geral - Fatores Condicionantes - detalhamento”, mas não forneceu links de arquivos verificáveis. São pistas de navegação, não planilhas atualizadas validadas. |
-| [Estatísticas Fiscais](https://www.bcb.gov.br/estatisticas/estatisticasfiscais) | A leitura direta também exigiu JavaScript. Não foi obtido vínculo verificável para as tabelas anexas de uma nota de 2026. Falta abrir a página com JavaScript e seguir o link de tabelas da nota selecionada. |
-| [Catálogo oficial: pesquisa DBGG](https://dadosabertos.bcb.gov.br/api/3/action/package_search?q=DBGG&rows=100) | A consulta de metadados retornou 29 conjuntos. A leitura de seus títulos não identificou uma base de fatores da DBGG. A busca também retorna DLSP e ajustes diversos; nenhum desses códigos foi adotado como substituto. Não é prova de inexistência dos fatores no SGS; a pesquisa direta dos componentes no SGS continua pendente. |
+## 3. Fatores condicionantes — arquivos oficial legado e atual
 
-Não foi localizado um link exato de uma **versão atualizada validada** dos fatores. Permanecem necessários acesso às páginas dinâmicas e leitura das células do recurso escolhido; não foram construídos endereços de arquivos por suposição.
+**Responsável:** Banco Central do Brasil. Não foi confirmado código SGS para os fatores. O identificador utilizável nesta etapa é o arquivo oficial, com o caminho e a versão observada registrados abaixo.
 
-### Interpretação e conciliação pontual
+### Caminho de acesso e evidência do arquivo consultado
 
-**Resultado: bloqueada.** Não há mês com contribuições lidas em células, unidades confirmadas e hierarquia validada. Por isso, não foi possível selecionar uma observação compatível, somar componentes ou quantificar diferenças e arredondamentos. Não houve alteração dos dados para forçar igualdade.
-
-O objetivo da conferência será verificar se os componentes independentes explicam a variação correspondente. O saldo é um nível; a apresentação monetária dos fatores descreve mudanças desse nível. A apresentação acumulada no ano deve ser distinguida da mensal, sem somar acumulados ou misturar totais e subcomponentes. A classificação exata e os sinais publicados ainda dependem dos cabeçalhos e notas.
-
-Como identidade algébrica geral, para saldo nominal `D` e denominador `Y` compatíveis:
-
-`100 × (D_t/Y_t − D_anterior/Y_anterior) = 100 × (D_t − D_anterior)/Y_t + 100 × D_anterior × (1/Y_t − 1/Y_anterior)`.
-
-Isso explica por que dividir fatores monetários pelo PIB do período não basta, isoladamente, para explicar a mudança da relação dívida/PIB: também há efeito do denominador. A identidade **não valida a convenção específica das tabelas do BCB**, sobretudo nos acumulados. Antes de aplicá-la, é preciso confirmar o PIB usado, os períodos de referência e a regra oficial de acumulação. Diferenças residuais só poderão ser classificadas como arredondamento após a leitura dos valores, da precisão e das notas; não serão presumidas como tal.
-
-### Estado das pendências anteriores
-
-| Pendência | Estado nesta entrega | Evidência ou próximo requisito |
+| Recurso | Navegação confirmada em 10/11/2026 | Formato e identificação |
 |---|---|---|
-| Reconfirmar quatro amostras SGS e fixar intervalos | Resolvida | Dois meses por série reconfirmados; links fixos acima. |
-| Separar competência, consulta e atualização cadastral; explicar revisões | Resolvida | Seção de rastreabilidade. |
-| Identificar o denominador da fórmula da SGS 13762 | Resolvida quanto ao conceito cadastral | SGS 4382: PIB em 12 meses, preços correntes; construção mensal ainda não aprofundada. |
-| Abrir XLS; validar abas, cabeçalhos e notas em células | Bloqueada | Falta leitor XLS; `xlrd` ou LibreOffice é o requisito mínimo. |
-| Confirmar primeira/última competência e cobertura 2023–2026 dos fatores | Bloqueada | Depende da leitura das células; datas do arquivo não comprovam cobertura. |
-| Confirmar componentes, unidades, sinais e hierarquia | Bloqueada | Rótulos anteriores permanecem candidatos; faltam cabeçalhos e notas associados às células. |
-| Distinguir apresentações mensais, acumuladas e em relação ao PIB | Parcial | Distinção conceitual documentada; convenções específicas da planilha não validadas. |
-| Localizar alternativa oficial atualizada, se necessária | Parcial | Rotas e pistas registradas; sem arquivo alternativo ou cobertura validada. |
-| Conciliar um mês e avaliar diferenças/arredondamentos | Bloqueada | Nenhum conjunto compatível de células foi lido. |
-| Auditar continuidade mensal das séries SGS | Parcial | Apenas extremos foram amostrados; a tarefa não montou base completa. |
+| Arquivo legado | [Série histórica da DBGG — fatores condicionantes](https://www.bcb.gov.br/htms/Infecon/seriehistDBGGFC.asp?frame=1) → link [facdbp.zip](https://www.bcb.gov.br/ftp/notaecon/facdbp.zip), lido no HTML da página | ZIP contendo `Facdbp.xls`, 143.872 bytes; SHA-256 do ZIP: `f1c5ddab041f5be3dbede15e79133ab5daccd5684189fd9cb66175631cde298c`. |
+| **Fonte adequada ao período do projeto** | [Tabelas especiais](https://www.bcb.gov.br/estatisticas/tabelasespeciais) → “Dívida Bruta do Governo Geral - DBGG - Fatores Condicionantes” → [Facdbp.xlsx](https://www.bcb.gov.br/content/estatisticas/Documents/Tabelas_especiais/Facdbp.xlsx) | XLSX; SHA-256: `248dfef0e1cc5ef0315c3282f758f05264b3315283fe187ff9fe884dd0cc0e62`. Células de 2023–setembro/2026 presentes. |
+| Detalhamento, inspeção direcionada | Mesma página → “Dívida Bruta do Governo Geral - Fatores Condicionantes - detalhamento” → [Facdetdbp.xlsx](https://www.bcb.gov.br/content/estatisticas/Documents/Tabelas_especiais/Facdetdbp.xlsx) | XLSX; aba `Rec Div` lida para comparar o total de reconhecimento de dívidas nos 45 meses. Demais abas não foram validadas integralmente. SHA-256: `f5485952a064643a510ee140dc0181b9e4ac4363b769bd20e93465befcaa5a60`. |
+| Nota fiscal contemporânea | [Estatísticas Fiscais](https://www.bcb.gov.br/estatisticas/estatisticasfiscais) → [Texto de outubro/2026](https://www.bcb.gov.br/content/estatisticas/hist_estatisticasfiscais/202610_Texto_de_estatisticas_fiscais.pdf) e [Tabelas de outubro/2026](https://www.bcb.gov.br/content/estatisticas/hist_estatisticasfiscais/202610_Tabelas_de_estatisticas_fiscais.xlsx) | Links obtidos da página renderizada. PDF lido: nota de **29/10/2026**, tratando setembro/2026. O anexo XLSX foi apenas localizado, não inspecionado. |
+
+As páginas dinâmicas foram abertas com o Chrome já instalado em `/opt/google/chrome/chrome`, modo headless. Assim foi possível obter os `href` reais, antes indisponíveis na leitura sem JavaScript. Não foram inventados endereços de arquivos. Os downloads e a extração ficaram em `/tmp/dbgg-celulas-b5n8nqwv/`, fora do repositório. Os hashes identificam os bytes consultados, não a competência; os links podem servir versões revisadas no futuro.
+
+### Abas, datas e cobertura efetivamente lidas
+
+| Arquivo e aba | Cabeçalhos e limites nas células | Cobertura verificada |
+|---|---|---|
+| XLS, `Fluxos mensais` | Ano na linha 5, mês por extenso na linha 7; `C5=2006`, `C7=Dezembro`; bloco iniciado em `EF5=2018`, terminando em `EP7=Novembro`, com saldo em `EP10` | Dezembro/2006 a novembro/2018. Há ainda uma referência auxiliar a novembro/2006 em `A52:B52`; ela não é uma coluna mensal dos fatores. Não contém 2023–2026. |
+| XLS, `Fluxos acumulados no ano` | `C5=2007`, `C7=Dezembro`; `N5=2018`, `N7=Novembro`; valores nas respectivas colunas | Dezembro/2007 a novembro/2018: colunas de fechamento de cada ano e acumulado parcial de 2018, não uma sequência de todos os meses. |
+| XLSX, `Fluxos mensais` | `C5=2006`, `C7=Dezembro`; `HX5=2026`, `IF7=Setembro`; dados até `IF` | 238 colunas mensais, de dezembro/2006 a setembro/2026. No período principal, **45 meses**: `GN:GY` em 2023, `GZ:HK` em 2024, `HL:HW` em 2025 e `HX:IF` em 2026. |
+| XLSX, `Fluxos acumulados no ano` | `C5=2007`, `C7=Dezembro`; `V5=2026`, `V7=Setembro` | Fechamentos de dezembro/2007 a dezembro/2025 e janeiro–setembro/2026 acumulado. Para o projeto: `S`=2023, `T`=2024, `U`=2025, `V`=2026 parcial. |
+
+No XLS as datas **não são células tipadas como data Excel**: foram lidos os anos numéricos e os meses textuais dos cabeçalhos, mantendo o ano de cada bloco. O mesmo padrão foi identificado no XLSX. Nenhuma data de gravação foi usada para inferir cobertura.
+
+No XLSX foram examinadas as 45 colunas do período principal e confirmadas células numéricas nas linhas `10, 12, 14–23, 25, 28, 30, 32–41 e 43` (26 linhas, 1.170 células). Essa conferência inicial comprovou presença. Na etapa seguinte, descrita abaixo, os 45 meses SGS foram comparados aos saldos e as identidades dos componentes mensais foram verificadas. Isso ainda não valida integralmente todas as abas, subcomponentes ou convenções da fonte.
+
+### Estrutura, unidades, hierarquia e sinais
+
+A estrutura relevante é a mesma nos dois arquivos. A primeira parte traz **R$ milhões correntes** (indicação na linha 4), e a segunda apresenta a relação e os fatores em relação ao PIB, conforme a nota 1 nas linhas 46–47. Os nomes de linhas abaixo são os publicados; “Nec. de financiamento” refere-se à decomposição da DBGG, sem equivalência automática ao resultado nominal de todo o setor público.
+
+| Linha monetária / linha relativa ao PIB | Componente ou agregado | Como usar e sinais observados em jan/2023–set/2026 |
+|---|---|---|
+| 10 / 28 | DBGG — saldo | Nível em R$ milhões / % do PIB. Não somar meses. |
+| 12 / 30 | Variação mensal ou acumulada no ano | Diferença de saldos monetários / mudança da relação em **p.p.**, conforme a aba. |
+| 14 / 32 | Fatores condicionantes — total | Agregado; não adicionar aos componentes. Linha 32 é proporção do PIB, não a variação da relação por si só. |
+| 15 / 33 | Nec. de financiamento — DBGG | Subtotal: emissões líquidas + juros nominais. |
+| 16 / 34 | Emissões líquidas | Componente independente: valores positivos aumentam a dívida; negativos correspondem a resgates líquidos na leitura da decomposição. Ambos os sinais presentes. |
+| 17 / 35 | Juros nominais | Componente independente; valores positivos em todos os 45 meses examinados. |
+| 18 / 36 | Ajuste cambial — total | Componente independente com ambos os sinais; subdividido nas duas linhas seguintes. |
+| 19 / 37 | Dívida interna indexada ao câmbio | Subcomponente do ajuste cambial, com ambos os sinais. |
+| 20 / 38 | Dívida externa — metodológico | Subcomponente do ajuste cambial, com ambos os sinais. |
+| 21 / 39 | Dívida externa — outros ajustes | Componente independente, com ambos os sinais. Nota sobre paridade da cesta de moedas e demais ajustes externos. |
+| 22 / 40 | Reconhecimento de dívidas | Componente independente; foram observados valores positivos e negativos. Não presumir que seja sempre aumento da dívida. |
+| 23 / 41 | Privatizações | Linha efetivamente presente, com zero nos 45 meses examinados. Sua presença não implica contribuição diferente de zero no período. |
+| — / 43 | Efeito do crescimento do PIB sobre a dívida | Contribuição em p.p. ligada à mudança do denominador; não é um fluxo monetário a adicionar à linha 14. |
+| 25 / — | PIB acumulado em doze meses — corrente | Denominador em R$ milhões; não confundir com o PIB apenas do mês. |
+
+As linhas 32–41 expressam fatores como **% do PIB**, enquanto as linhas 30 e 43 expressam variações ou efeitos em **pontos percentuais**. Essa distinção deve aparecer nos rótulos dos futuros gráficos.
+
+Para o total monetário, usar **16 + 17 + 18 + 21 + 22 + 23**, ou substituir 16+17 pelo subtotal 15. Se usar 18, não somar novamente 19 e 20. Valores positivos/negativos são contribuições de aumento/redução na identidade contábil; não são julgamento sobre políticas ou prova causal. Sinais futuros não foram presumidos com base na amostra.
+
+### Notas e interpretação das apresentações
+
+- Nas duas abas, `A46:A47` informa que os fatores como percentual do PIB são o total dos fatores dividido pelo PIB corrente acumulado em 12 meses, multiplicado por 100, e adverte que isso **não reflete a variação da dívida em percentagem do PIB**. A mudança da relação exige também o efeito do denominador.
+- Na aba mensal, `A48` inclui paridade da cesta de moedas e outros ajustes externos; `A49` descreve o efeito do PIB pela fórmula `Dt-1/(PIBMesAtual/PIBMesBase) - Dt-1`. A linha 50 registra a legenda de dados preliminares; não se inferiu que todas as células tenham essa marcação.
+- Na aba acumulada, `A48` diz “Considera a soma dos efeitos mensais até o mês de referência”; a chamada está no ajuste cambial. `A49` trata dos demais ajustes externos e `A50` do efeito do PIB. A legenda de preliminares fica na linha 51.
+- **Pendência editorial/metodológica:** a linha monetária de reconhecimento de dívidas remete a `3/` na aba mensal e `4/` na acumulada, mas essas notas descrevem o efeito do PIB. A inconsistência aparece tanto no XLS quanto no XLSX consultados. A investigação no manual e no detalhamento está registrada abaixo: a chamada continua sem correção oficial localizada, mas não impede usar a linha mensal publicada com a ressalva indicada.
+
+Na aba acumulada, os saldos continuam sendo níveis de fim do período. Os fluxos monetários são acumulados desde janeiro. Conferência de 2026: a soma da linha 14 mensal de janeiro a setembro é **1.095.863,39241455 R$ milhões**, igual a `V14` da aba acumulada. As proporções mensais não devem ser somadas para reproduzir a proporção acumulada: a soma da linha 32 mensal é **8,358902029822124**, enquanto `V32` é **8,17685011924861**, pois os denominadores mensais variam. Para o acumulado publicado, ler a própria aba e suas notas.
+
+Em setembro/2026 acumulado, `V32 + V43 = 8,17685011924861 − 3,8931408382141797 = 4,2837092810344295 p.p.`, igual a `V30` na precisão lida. Essa conferência não valida todas as convenções de cada subcomponente acumulado; em particular, a nota de soma de efeitos cambiais merece conferência detalhada antes de conversões próprias.
+
+### Conciliação pontual — setembro de 2026, fonte atual
+
+Foram usados os valores armazenados nas células do XLSX, sem misturar versões ou substituir seus valores pelos arredondados do SGS.
+
+| Célula, aba `Fluxos mensais` | Valor em R$ milhões |
+|---|---:|
+| `IF16` — emissões líquidas | −50.009,993283230004 |
+| `IF17` — juros nominais | 109.537,24508303 |
+| `IF18` — ajuste cambial total | −77,34802133999999 |
+| `IF21` — outros ajustes externos | −1.491,4534111300002 |
+| `IF22` — reconhecimento de dívidas | 869,71031687 |
+| `IF23` — privatizações | 0 |
+
+A soma desses componentes, usando `Decimal` sobre os números textuais armazenados no XML, é **58.828,160684199985852 R$ milhões**. A diferença dos saldos é:
+
+`IF10 − IE10 = 11.113.782,53130238 − 11.054.954,37061818 = 58.828,160684200 R$ milhões`.
+
+Resíduo **soma menos diferença dos saldos: −0,000000000014148 R$ milhões**. Na precisão de seis casas decimais, ambos resultam em **58.828,160684**. O resíduo foi medido e preservado; não foi atribuído automaticamente a arredondamento da publicação nem corrigido nos dados. A origem exata das casas residuais nos valores armazenados não foi investigada.
+
+A hierarquia também foi conferida nesse mês: `IF16 + IF17 = IF15 = 59.527,25179979999` e `IF19 + IF20 = IF18 = −77,34802133999999` na aritmética de ponto flutuante usada na inspeção. Esses subtotais não foram adicionados novamente.
+
+Para a relação dívida/PIB:
+
+`IF32 + IF43 = 0,43894983264831083 − 0,3793193868998799 = 0,05963044574843096 p.p.`, igual à variação publicada em `IF30` na precisão de ponto flutuante lida.
+
+A diferença direta `IF28 − IE28`, entre **82,92615178626747%** e **82,86652134051903%**, resulta em **0,05963044574843934 p.p.**; o resíduo frente à soma acima é inferior a `10⁻¹⁴ p.p.` nessa aritmética. Também foi conferida a forma `100 × fator monetário / PIB corrente` e a expressão do efeito do PIB usando os saldos e denominadores da própria planilha. Nenhum dado foi alterado.
+
+Os valores de setembro do XLSX são compatíveis, ao arredondar a duas casas, com as amostras SGS documentadas: **11.113.782,53 R$ milhões** e **82,93% do PIB**. Essa comparação pontual foi ampliada para os 45 meses na seção seguinte. A nota oficial de 29/10/2026 também descreve juros, resgates líquidos e efeito do PIB para setembro, coerentes com os sinais examinados; seus números têm precisão de apresentação diferente.
+
+Como controle histórico separado, novembro/2018 do XLS também foi conciliado: soma dos componentes e diferença dos saldos são **52.741,105218 R$ milhões** a seis casas, e `EP32 + EP43 = EP30 = 0,3226751085283299 p.p.` na aritmética utilizada. Esse controle não estende a cobertura do XLS ao período do projeto.
+
+### Validação mensal integral do intervalo da primeira entrega
+
+Consulta em **10/11/2026**, com `.venv/bin/python`, sem reinstalar ferramentas ou baixar novamente o XLS/XLSX principal. Foi reutilizado `Facdbp-atual.xlsx`, identificado pelo hash acima. As respostas SGS abaixo são consultas de inspeção, não uma base final ou um pipeline.
+
+| Série e consulta fixa | Meses esperados / recebidos | Ausentes / duplicados / fora do intervalo / inválidos |
+|---|---:|---|
+| [SGS 13761 — janeiro/2023 a setembro/2026](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13761/dados?formato=json&dataInicial=01/01/2023&dataFinal=30/09/2026) | 45 / 45 | 0 / 0 / 0 / 0 |
+| [SGS 13762 — janeiro/2023 a setembro/2026](https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2023&dataFinal=30/09/2026) | 45 / 45 | 0 / 0 / 0 / 0 |
+
+Foram interpretadas as datas no formato `dd/mm/aaaa`, comparadas as chaves ano/mês à sequência esperada e contadas as ocorrências por competência. Os valores foram interpretados com `Decimal` e verificados como numéricos, finitos e positivos, condição compatível com saldos da DBGG. As duas respostas estão em ordem cronológica. A aba `Fluxos mensais` contém exatamente as mesmas 45 competências selecionadas, também sem duplicação ou ausência.
+
+Hashes SHA-256 das respostas brutas consultadas, mantidas apenas em `/tmp/dbgg-celulas-b5n8nqwv/`:
+
+- SGS 13761: `70d66b5ba3170691e82f69a9803588844913855f6d2f855156d9fa8a47966b32`.
+- SGS 13762: `416a199d9b17436c2fa847c2b1f9e069bd00e12b6aa1485edac0ace12c173faa`.
+
+#### Comparação dos saldos com as séries SGS
+
+Foram comparados, por competência, a linha 10 com a SGS 13761 e a linha 28 com a SGS 13762. A planilha armazena mais casas que o SGS. Para testar compatibilidade de precisão, calculou-se uma cópia arredondada a duas casas com `Decimal.quantize(..., ROUND_HALF_UP)`, sem modificar os valores de origem.
+
+| Comparação | Pares | Divergências após arredondar a duas casas | Maior diferença absoluta antes de arredondar |
+|---|---:|---:|---|
+| Linha 10 × SGS 13761 | 45 | 0 | **0,0045211143 R$ milhões**, dezembro/2023: XLSX `8079270.0245211143`, SGS `8079270.02`. |
+| Linha 28 × SGS 13762 | 45 | 0 | **0,004761341773143 p.p.**, setembro/2025: XLSX `77.835238658226857`, SGS `77.84`. |
+
+Os 90 pares diferem nos números brutos por terem casas adicionais na planilha, mas todos coincidem à precisão de publicação do SGS. As diferenças máximas são inferiores a 0,005 na respectiva unidade. Portanto, há compatibilidade de precisão nesta consulta; não se declarou igualdade dos números brutos nem foram corrigidos os dados.
+
+**Consequência prática:** usar SGS para apresentar os saldos e os valores de maior precisão da própria planilha para conferir a decomposição dos fatores. Diferenças mensais calculadas a partir dos saldos SGS arredondados podem não reproduzir todas as casas dos fluxos publicados; não substituir o fluxo oficial por um valor ajustado para fechar a conta.
+
+#### Controles adicionais dos fatores mensais
+
+Sem repetir a conciliação pontual já documentada de setembro, os mesmos relacionamentos foram verificados nas 45 colunas, usando os números textuais armazenados no XML e aritmética `Decimal`. Os resíduos máximos absolutos foram:
+
+| Identidade | Meses | Maior resíduo absoluto |
+|---|---:|---:|
+| Linhas 16+17+18+21+22+23 menos total da linha 14 | 45 | `2,75 × 10⁻¹¹ R$ milhões` (junho/2024) |
+| Linha 14 menos variação publicada na linha 12 | 45 | `9,3 × 10⁻¹⁰ R$ milhões` (outubro/2025) |
+| Linhas 16+17 menos subtotal 15 | 45 | `1,6 × 10⁻¹¹ R$ milhões` (junho/2024) |
+| Linhas 19+20 menos subtotal 18 | 45 | `2 × 10⁻¹² R$ milhões` (abril/2026) |
+| Linhas 34+35+36+39+40+41+43 menos variação publicada na linha 30 | 45 | `2,53 × 10⁻¹⁶ p.p.` (junho/2024) |
+
+Nas **44 transições de fevereiro/2023 a setembro/2026**, a diferença entre saldos consecutivos da própria planilha foi comparada à linha 12, com resíduo máximo de `6,8 × 10⁻¹⁰ R$ milhões` em agosto/2026. Para janeiro/2023, foi conferida a identidade com a **variação mensal já publicada** (`32.356,551644139923 R$ milhões`), sem calcular uma diferença usando dezembro/2022. O uso auxiliar desse mês continua pendente de decisão.
+
+Esses resíduos foram medidos, não removidos nem atribuídos automaticamente a arredondamentos. Não foram encontradas divergências na escala da precisão publicada do SGS. Os controles sustentam o uso descritivo e contábil dos componentes mensais selecionados nesta versão, sem constituir auditoria das operações individuais que os originaram.
+
+### Investigação da nota de reconhecimento de dívidas
+
+O [Manual de Estatísticas Fiscais](https://www.bcb.gov.br/content/estatisticas/Documents/notas_metodologicas/estatisticas-fiscais/estatisticasfiscais.pdf), seção 6, **página impressa 38**, explica o reconhecimento de dívidas como ajuste que separa determinadas operações do resultado fiscal, citando dívidas geradas no passado e reclassificações. Esse trecho está no contexto de DLSP/NFSP: fornece contexto conceitual, mas não foi usado para transferir automaticamente toda convenção dessas estatísticas à DBGG.
+
+A evidência específica da DBGG veio de [Facdetdbp.xlsx](https://www.bcb.gov.br/content/estatisticas/Documents/Tabelas_especiais/Facdetdbp.xlsx): a aba **`Rec Div`** tem `A1=Reconhecimento de Dívidas - Detalhamento por Item`, `A2=Fluxo mensal`, unidade **R$ milhões** na linha 5, ano na linha 6, mês na linha 8 e total `Dívida bruta do Governo Geral` na linha 11. Esse total foi comparado à linha 22 de `Facdbp.xlsx` nos **45 meses**. A diferença foi exatamente zero em 43 pares; nos outros dois, o maior resíduo absoluto foi **`5 × 10⁻¹³ R$ milhões`**, outubro/2023 (`3314.8310689700002` na principal e `3314.8310689699997` no detalhamento). Não houve ajuste desses valores.
+
+O detalhamento também confirma sinal negativo em dezembro/2025: **−499,42247353999994 R$ milhões** na principal. Por isso, a primeira análise conservará o sinal publicado e não tratará reconhecimento como necessariamente positivo. As notas `3/` e `4/` da aba `Rec Div` referem-se, respectivamente, a títulos estaduais e municipais; não esclarecem nem corrigem a chamada homônima da tabela principal.
+
+**Resultado e consequência concreta:** não foi localizada, nas fontes oficiais consultadas, errata que resolva a referência `3/` da linha 22 da aba mensal principal. A incerteza sobre essa chamada permanece. Entretanto, o nome, a unidade, o total independente no detalhamento e as identidades mensais permitem usar a linha como **“Reconhecimento de dívidas — conforme publicado pelo BCB”** na decomposição contábil mensal. Não se deve aplicar a ela a fórmula de efeito do PIB, redistribuí-la entre juros/emissões ou atribuir seu valor a um evento específico sem evidência adicional. Essa ressalva **não bloqueia a coleta nem o uso descritivo do agregado mensal**, mas limita explicações sobre sua composição e origem. A parte de reconhecimento relativa ao PIB é a linha 40; o efeito do denominador permanece separado na linha 43.
+
+Não se declara que o BCB confirmou um erro editorial. O que está confirmado é a inconsistência entre a chamada e o conteúdo da nota e a compatibilidade dos totais mensais entre duas apresentações oficiais.
+
+### Escopo e pendências para a primeira entrega
+
+A primeira entrega usará **saldos e fatores mensais de janeiro/2023 a setembro/2026**, mantendo o agregado cambial, sem abrir seus subcomponentes. Para a decomposição monetária: linhas **16, 17, 18, 21, 22 e 23**. Para a mudança da relação dívida/PIB: correspondentes **34, 35, 36, 39, 40 e 41**, com o efeito do PIB da **43**, distinguindo proporção do PIB e contribuição em p.p. conforme explicado acima.
+
+**Acumulados no ano e análises de subcomponentes ficam fora do escopo inicial.** Os exemplos acumulados já registrados são inspeções limitadas, não validação de suas convenções. Não serão transformados nem utilizados na primeira entrega.
+
+| Grupo | Verificação ou pendência | Estado e consequência |
+|---|---|---|
+| Essencial mensal | 45 competências SGS, ausência de duplicações e valores inválidos | Resolvida para ambas as séries no intervalo consultado. |
+| Essencial mensal | Compatibilidade das competências e saldos com a aba mensal | Resolvida: 45 competências comuns e 90 saldos compatíveis a duas casas. |
+| Essencial mensal | Componentes independentes, unidades, sinais e identidades mensais | Resolvida para o conjunto selecionado, com resíduos explicitados e sem dupla contagem. |
+| Essencial mensal | Tratamento da nota de reconhecimento de dívidas | Suficiente para uso do agregado publicado com ressalva; chamada original não resolvida por errata oficial. Não atribuir operações ou causas específicas. |
+| Essencial na próxima coleta | Manter as versões consultadas e repetir controles após eventual revisão | A executar na coleta; hashes e consultas documentados. A forma de versionar dados ainda será decidida. |
+| Decisão de escopo | Dezembro/2022 como referência auxiliar | Continua proposta pendente. Não bloqueia usar o saldo e a variação de janeiro já publicados. |
+| Futuro, fora do escopo inicial | Convenções dos acumulados e conversões entre mensal/acumulado | Não validadas integralmente; não usar na primeira entrega. |
+| Futuro, fora do escopo inicial | Subcomponentes cambiais e detalhamento por instrumentos/entes | Leitura e validação completas pendentes; usar apenas o agregado cambial na primeira entrega. |
+| Futuro, interpretação aprofundada | Corrigir/esclarecer oficialmente a nota e explicar eventos de reconhecimento | Pendente; necessária para atribuições mais específicas, sem bloquear o agregado mensal. |
+
+**Conclusão:** podemos iniciar a coleta dos saldos SGS e dos fatores mensais selecionados para os 45 meses, com a ressalva de reconhecimento preservada e controles de versão. Não há bloqueio técnico ou incompatibilidade de dados identificado para esse escopo. Isso é um mapeamento suficiente para a primeira entrega, **não validação completa de todas as apresentações da fonte**.
+
+### Histórico das verificações anteriores
+
+A instalação isolada de `xlrd`, a leitura do XLS legado, a localização do XLSX atual e a conciliação de setembro/2026 foram preservadas nesta documentação e não repetidas sem necessidade. A investigação atual reutilizou o arquivo principal e acrescentou as consultas SGS do intervalo completo, a comparação entre fontes e a inspeção direcionada de reconhecimento de dívidas. Não houve nova instalação, criação de notebook ou implementação do pipeline definitivo.
 
 ## Decisões para a etapa seguinte
 
 1. Manter as unidades originais registradas; converter apenas na apresentação, com rótulos explícitos. Diferenças entre percentuais do PIB são expressas em pontos percentuais (p.p.), distintas de taxas de crescimento percentual.
 2. Não somar saldos mensais para obter “dívida anual”. Usar saldo de fim do período para esse propósito; em 2026, indicar o mês efetivamente disponível.
-3. Não somar acumulados no ano. Uma eventual transformação em fluxos mensais dependerá da definição oficial, da mudança de ano e das revisões da base; ainda não foi aprovada ou implementada.
-4. Antes da coleta completa, resolver as pendências dos fatores e verificar a continuidade e compatibilidade temporal das fontes. O mapeamento permanece parcial.
+3. Na primeira entrega, usar somente a aba mensal e os componentes selecionados. Acumulados e subcomponentes ficam fora do escopo; suas convenções não foram declaradas validadas.
+4. A próxima coleta poderá usar o mapeamento mensal suficiente, mantendo as ressalvas e repetindo os controles em cada versão obtida. Não foi implementado pipeline; validação completa de todas as apresentações permanece fora desta conclusão.
 5. Decidir posteriormente quais dados serão versionados. Os arquivos temporários de verificação ficaram em `/tmp`, fora do repositório; os exemplos acima são evidências documentais pontuais.
