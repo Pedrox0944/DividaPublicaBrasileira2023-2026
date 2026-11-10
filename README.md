@@ -47,7 +47,7 @@ A contribuição contábil de um fator não prova o efeito causal de uma políti
 
 A última competência disponível e a cobertura de cada série serão informadas nas entregas. Comparações que incluam 2026 considerarão seu caráter parcial, quando aplicável, sem tratar meses ainda não divulgados como dados observados.
 
-Valores em reais correntes não descontam a inflação; sua evolução e a relação dívida/PIB serão interpretadas como medidas distintas. Dados observados serão separados de hipóteses, e lacunas ou diferenças de cobertura serão documentadas. Não há, nesta etapa, códigos de séries validados, valores coletados ou resultados de análise.
+Valores em reais correntes não descontam a inflação; sua evolução e a relação dívida/PIB serão interpretadas como medidas distintas. Dados observados serão separados de hipóteses, e lacunas ou diferenças de cobertura serão documentadas. As séries SGS 13762 (% do PIB) e 13761 (milhões de reais correntes) foram identificadas e validadas por metadados e amostras pontuais. Ainda não há base completa coletada nem resultados de análise.
 
 ## Ferramentas
 
@@ -61,8 +61,10 @@ Valores em reais correntes não descontam a inflação; sua evolução e a rela�
 
 O indicador principal, a fonte, a frequência e as medidas foram definidos. O escopo inclui a trajetória e os fatores condicionantes da DBGG, com distinção entre descrição, decomposição contábil e investigação causal.
 
-A próxima etapa será identificar e validar as séries oficiais antes da coleta, registrando códigos, unidades, periodicidade e cobertura temporal. Essa validação deverá confirmar a correspondência das séries com o indicador, as medidas e os fatores condicionantes escolhidos, além da última competência disponível de 2026.
+O [mapeamento de fontes e séries](fontes-e-series.md), consultado em 10/11/2026, está **parcial**. As séries SGS 13762 e 13761 foram confirmadas como mensais, com início em dezembro de 2006 e última observação retornada em setembro de 2026. A continuidade de todos os meses ainda será verificada. A base oficial dos fatores condicionantes foi localizada, mas sua cobertura de 2023–2026 e a associação dos componentes às unidades e às apresentações mensais ou acumuladas permanecem pendentes.
 
-Não há dados coletados, notebooks ou código de análise, e nenhuma dependência foi instalada nesta etapa.
+A próxima etapa será resolver essas verificações antes da coleta completa. O período principal permanece janeiro de 2023 até o último mês disponível de 2026; setembro de 2026 foi confirmado para os saldos, mas ainda não para os fatores.
+
+Foram consultados metadados, pequenas amostras oficiais e o arquivo dos fatores para verificação. Não foi montada a base completa, não foram criados scripts de coleta, notebooks ou código de análise, e nenhuma dependência foi instalada nesta etapa.
 
 O trabalho será realizado em pequenas entregas, com explicações claras e objetivas. Código de análise será implementado apenas quando solicitado. A decisão sobre quais dados serão versionados será tomada posteriormente.
